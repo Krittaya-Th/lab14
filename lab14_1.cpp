@@ -1,62 +1,25 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-const int N = 5;
-
-void inputMatrix(double [][N]);
-
-void findLocalMax(const double [][N], bool [][N]);
-
-void showMatrix(const bool [][N]);
-
-int main(){
-	double A[N][N]; 
-	bool B[N][N]; 
-	cout << "Input the matrix.....\n";
-	inputMatrix(A);
-	findLocalMax(A,B);
-	cout << "Result is \n";
-	showMatrix(B);
-	return 0;
-}
-
-void showMatrix(const bool B[][N]){
-    for(int a=0;a<N;a++){
-        for(int b=0;b<N;b++){
-            cout<<B[a][b]<<" ";
-        }
-        cout<<endl;
-    }
-    
-}
-
-void inputMatrix(double M[][N]){
-    for(int i=0;i<N;i++){
-        cout<<"Row "<<i+1<<": ";    
-        for(int j=0;j<N;j++){
-            cin>>M[i][j];
-        }
-    }
-    
-}
-
-void findLocalMax(const double A[][N], bool B[][N]){
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
-            B[i][j]=false;
-		}	
-
+template <typename C>
+void show(C a[],int N,int j){
+	cout <<"Pass "<<j<<":";
+	for(int i=0;i<N;i++){
+		cout << a[i] <<" ";
 	}
-	for(int a=1;a<N-1;a++){
-        for(int b=1;b<N-1;b++){
-            if(A[a][b]>=A[a-1][b]&&
-               A[a][b]>=A[a+1][b]&&
-               A[a][b]>=A[a][b-1]&&
-               A[a][b]>=A[a][b+1]){
-				B[a][b]=true;
-			}
-		}	
+	cout << "\n" ;
+}
 
-	}
-	
+template <typename C>
+void insertionSort(C a[], int N){
+	for(int i=1;i<N;i++){
+		C x = a[i]; 
+        int b = i-1;
+        while (b>=0 && a[b] < x) {
+            a[b+1] = a[b];
+            b--;
+        }
+        a[b+1] = x; 
+        show(a,N,i);
+    }
 }
