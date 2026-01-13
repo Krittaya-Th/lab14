@@ -1,19 +1,62 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-template <typename T>
-void insertionSort(T d[],int N){
+const int N = 5;
 
-}
+void inputMatrix(double [][N]);
+
+void findLocalMax(const double [][N], bool [][N]);
+
+void showMatrix(const bool [][N]);
 
 int main(){
-	int a[10] = {12,25,30,44,2,0,4,7,55,25};
-	cout << "Input Array:";
-	for(int i = 0; i < 10; i++) cout << a[i] << " ";
-	cout << "\n\n";
+	double A[N][N]; 
+	bool B[N][N]; 
+	cout << "Input the matrix.....\n";
+	inputMatrix(A);
+	findLocalMax(A,B);
+	cout << "Result is \n";
+	showMatrix(B);
+	return 0;
+}
+
+void showMatrix(const bool B[][N]){
+    for(int a=0;a<N;a++){
+        for(int b=0;b<N;b++){
+            cout<<B[a][b]<<" ";
+        }
+        cout<<endl;
+    }
+    
+}
+
+void inputMatrix(double M[][N]){
+    for(int i=0;i<N;i++){
+        cout<<"Row "<<i+1<<": ";    
+        for(int j=0;j<N;j++){
+            cin>>M[i][j];
+        }
+    }
+    
+}
+
+void findLocalMax(const double A[][N], bool B[][N]){
+    for(int i=0;i<N;i++){
+        for(int j=0;j<N;j++){
+            B[i][j]=false;
+		}	
+
+	}
+	for(int a=1;a<N-1;a++){
+        for(int b=1;b<N-1;b++){
+            if(A[a][b]>=A[a-1][b]&&
+               A[a][b]>=A[a+1][b]&&
+               A[a][b]>=A[a][b-1]&&
+               A[a][b]>=A[a][b+1]){
+				B[a][b]=true;
+			}
+		}	
+
+	}
 	
-	insertionSort(a,10);
-	
-	cout << "\nSorted Array:";
-	for(int i = 0; i < 10; i++) cout << a[i] << " ";	
 }
